@@ -1,0 +1,38 @@
+*.xlsx
+*.zip
+*.gz
+*.csv
+*.html
+*.pdf
+*.DS_Store
+*.code-workspace
+*.env
+*.parquet
+*.json
+*.tmp
+*.driveupload
+*.pptx
+*.png
+*.npz
+*.joblib
+*logs
+*.sqlite
+.ipython/
+
+# Hugging Face cache
+Dashboard/.cache/huggingface/
+Dashboard/.ipython/profile_default
+
+# pip cache
+Dashboard/.cache/pip/
+
+# npm logs
+Dashboard/.npm/
+
+# IPython history and startup files
+Dashboard/.ipython/
+getaround_analysis/Dashboard/.ipython/
+getaround_analysis/Dashboard/.ipython/profile_default
+getaround_analysis/Dashboard/.cache/huggingface/
+getaround_analysis/Dashboard/.cache/pip/
+getaround_analysis/Dashboard/.npm/
