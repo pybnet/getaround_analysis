@@ -16,8 +16,12 @@
 *.npz
 *.joblib
 *logs
+*.log
+*.doc
+*.docx
+*.xls
 *.sqlite
-.ipython/
+*.ipython/
 
 # Hugging Face cache
 Dashboard/.cache/huggingface/
@@ -36,3 +40,6 @@ getaround_analysis/Dashboard/.ipython/profile_default
 getaround_analysis/Dashboard/.cache/huggingface/
 getaround_analysis/Dashboard/.cache/pip/
 getaround_analysis/Dashboard/.npm/
+Icon?
+
+__pycache__/
