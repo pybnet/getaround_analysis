@@ -22,7 +22,7 @@
 *.xls
 *.sqlite
 *.ipython/
-
+*.mov
 # Hugging Face cache
 Dashboard/.cache/huggingface/
 Dashboard/.ipython/profile_default
