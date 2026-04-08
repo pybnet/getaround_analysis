@@ -6,7 +6,8 @@
 *.pdf
 *.DS_Store
 *.code-workspace
-*.env
+.env
+*.env.*
 *.parquet
 *.json
 *.tmp
@@ -23,23 +24,30 @@
 *.sqlite
 *.ipython/
 *.mov
+
 # Hugging Face cache
-Dashboard/.cache/huggingface/
-Dashboard/.ipython/profile_default
+API/.cache/huggingface/
 
-# pip cache
-Dashboard/.cache/pip/
+mlruns/
+*.pkl
+*.joblib
 
-# npm logs
-Dashboard/.npm/
+*.log
+*logs/
+*.tmp
+*.driveupload
 
 # IPython history and startup files
+Dashboard/.cache/
+Dashboard/.npm/
 Dashboard/.ipython/
-getaround_analysis/Dashboard/.ipython/
-getaround_analysis/Dashboard/.ipython/profile_default
-getaround_analysis/Dashboard/.cache/huggingface/
-getaround_analysis/Dashboard/.cache/pip/
-getaround_analysis/Dashboard/.npm/
+API/.cache/
+API/.npm/
+API/.ipython/
+
 Icon?
 
 __pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/

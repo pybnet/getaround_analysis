@@ -1,0 +1,44 @@
+name: ml
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - numpy<2               # Requis par tensorflow==2.15 et xgboost 1.x (compilés contre NumPy 1.x)
+  - pandas
+  - openpyxl
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - jupyterlab
+  - pytest
+  - psycopg2 
+  - lxml
+  - ipywidgets             # Requis par tqdm pour les barres de progression dans Jupyter
+  - pip:
+      - xgboost==1.7.6
+      - transformers==4.40.2  # Dernière version compatible avec torch==2.2.2
+      - fastapi[standard]
+      - python-dotenv
+      - pydantic
+      - typing
+      - boto3
+      - yellowbrick
+      - python-multipart
+      - fsspec
+      - s3fs
+      - gunicorn
+      - streamlit
+      - plotly
+      - gdown
+      - evidently
+      - mlflow==2.21.0
+      - great-expectations
+      - uvicorn[standard]
+      - --extra-index-url https://download.pytorch.org/whl/cpu
+      - torch==2.2.2
+      - torchvision==0.17.2
+      - torchaudio==2.2.2
+      - torchinfo
+      - tensorflow==2.15.0
