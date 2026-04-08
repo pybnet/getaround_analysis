@@ -8,7 +8,7 @@ dependencies:
   - numpy<2               # Requis par tensorflow==2.15 et xgboost 1.x (compilés contre NumPy 1.x)
   - pandas
   - openpyxl
-  - scikit-learn
+  - scikit-scikit-learn==1.7.2
   - matplotlib
   - seaborn
   - jupyterlab

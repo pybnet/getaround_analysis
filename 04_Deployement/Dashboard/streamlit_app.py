@@ -62,7 +62,6 @@ st.sidebar.markdown("""
 - [Estimation du prix](#estimation-du-prix)
 """)
 st.sidebar.markdown("---")
-st.sidebar.markdown("Made by Pierre")
 
 # Titre
 
@@ -273,48 +272,8 @@ st.markdown("---")
 
 st.header("Simulation de seuils")
 
-st.markdown("Ajuste le seuil et le périmètre pour voir l'impact en temps réel.")
-
-col_slider, col_scope = st.columns([2, 1])
-
-with col_slider:
-    threshold = st.slider(
-        "Seuil minimum entre deux locations (minutes)",
-        min_value=0, max_value=720, step=15, value=60
-    )
-
-with col_scope:
-    scope = st.radio(
-        "Périmètre d'application",
-        options=["Tous", "Connect uniquement"],
-        index=0
-    )
-
-# Calcul dynamique pour le seuil choisi
-if scope == "Connect uniquement":
-    subset = merged[merged["checkin_type"] == "connect"]
-    total_scope = data[data["checkin_type"] == "connect"].shape[0]
-else:
-    subset = merged
-    total_scope = data.shape[0]
-
-blocked = subset[subset["time_delta_with_previous_rental_in_minutes"] < threshold].shape[0]
-solved  = subset[
-    (subset["prev_delay"] > 0) &
-    (subset["prev_delay"] > (threshold - subset["time_delta_with_previous_rental_in_minutes"]))
-].shape[0]
-ratio   = round(solved / blocked, 2) if blocked > 0 else "∞"
-
-col1, col2, col3, col4 = st.columns(4)
-col1.metric("Seuil choisi",              f"{threshold} min")
-col2.metric("Locations bloquées",        f"{blocked:,}", f"{100*blocked/total_scope:.1f}% du parc")
-col3.metric("Cas problématiques résolus",f"{solved:,}")
-col4.metric("Ratio (résolus / bloqués)", str(ratio))
-
-st.markdown("")
-
 # Tableau comparatif tous seuils
-thresholds = [0, 30, 60, 120, 240, 480]
+thresholds = [0, 30, 60, 120]
 results = []
 
 for sc in ["Tous", "Connect uniquement"]:

@@ -1,0 +1,4 @@
+
+cd /Users/pierre-yvesbenevise/Documents/DataEngineer/Projects/getaround_analysis
+
+git push https://huggingface.co/spaces/Pybnet/getarounda_api `git subtree split --prefix=04_Deployement/API main`:main --force
