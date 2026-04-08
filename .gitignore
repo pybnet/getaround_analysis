@@ -29,8 +29,6 @@
 API/.cache/huggingface/
 
 mlruns/
-*.pkl
-*.joblib
 
 *.log
 *logs/
