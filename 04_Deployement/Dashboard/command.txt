@@ -1,1 +1,1 @@
-streamlit run streamlit_app.py
+streamlit run /Users/pierre-yvesbenevise/Documents/DataEngineer/Projects/getaround_analysis/04_Deployement/Dashboard/streamlit_app.py

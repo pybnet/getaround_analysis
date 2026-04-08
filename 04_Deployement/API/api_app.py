@@ -61,6 +61,10 @@ class PredictResponse(BaseModel):
 
 # Endpoints
 
+@app.get("/", tags=["Root"])
+def root():
+    return {"message": "GetAround Pricing API is running. Go to /docs for documentation."}
+
 @app.post("/predict", response_model=PredictResponse, tags=["Prediction"])
 def predict(request: PredictRequest):
     """
