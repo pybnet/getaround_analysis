@@ -2,7 +2,7 @@
 title: GetAround Pricing API
 emoji: 🚗
 colorFrom: blue
-colorTo: orange
+colorTo: yellow
 sdk: docker
 pinned: false
 ---
