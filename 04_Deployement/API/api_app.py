@@ -236,29 +236,6 @@ DOCS_HTML = """<!DOCTYPE html>
     "winter_tires": false
   }]
 }'</pre>
-
-        <h3>Example – Python</h3>
-        <pre>import requests
-
-response = requests.post("https://pybnet-getarounda-api.hf.space/predict", json={
-    "input": [{
-        "model_key": "Renault",
-        "mileage": 85000,
-        "engine_power": 120,
-        "fuel": "diesel",
-        "paint_color": "black",
-        "car_type": "sedan",
-        "private_parking_available": True,
-        "has_gps": True,
-        "has_air_conditioning": True,
-        "automatic_car": False,
-        "has_getaround_connect": True,
-        "has_speed_regulator": True,
-        "winter_tires": False
-    }]
-})
-print(response.json())
-# {"prediction": [118.45]}</pre>
       </div>
     </div>
 

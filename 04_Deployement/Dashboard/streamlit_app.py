@@ -420,7 +420,7 @@ with col_form2:
 
 st.markdown("")
 
-if st.button("💰 Estimer le prix journalier", type="primary", width='content'):
+if st.button("Estimer le prix journalier", type="primary", width='content'):
     payload = {
         "input": [{
             "model_key":                  model_key,
