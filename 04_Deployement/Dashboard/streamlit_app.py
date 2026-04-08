@@ -15,7 +15,7 @@ st.set_page_config(
 )
 
 DATA_URL = "https://full-stack-assets.s3.eu-west-3.amazonaws.com/Deployment/get_around_delay_analysis.xlsx"
-API_URL  = "https://pybnet/getarounda_api.hf.space"   # ← URL du Space Hugging Face de l'API
+API_URL = "https://pybnet-getarounda-api.hf.space"  # ← URL du Space Hugging Face de l'API
 
 #Initilisation
 
@@ -111,13 +111,13 @@ with col_left:
     )
     fig.update_traces(textposition="outside")
     fig.update_layout(plot_bgcolor="white", paper_bgcolor="white")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
 with col_right:
     # Taux d'annulation par type
     cancel_rate = (
         data.groupby("checkin_type")
-        .apply(lambda x: round(100 * (x["state"] == "canceled").sum() / len(x), 1))
+        .apply(lambda x: round(100 * (x["state"] == "canceled").sum() / len(x), 1), include_groups=False)
         .rename("Taux d'annulation (%)")
         .reset_index()
     )
@@ -136,7 +136,7 @@ with col_right:
         plot_bgcolor="white", paper_bgcolor="white",
         showlegend=False, yaxis_range=[0, 25]
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
 st.caption("Le taux d'annulation est similaire entre connect et mobile.")
 
@@ -174,7 +174,7 @@ with col_left:
     fig.add_vline(x=delays.median(), line_dash="dot", line_color="orange",
                   annotation_text=f"Médiane ({delays.median():.0f} min)")
     fig.update_layout(plot_bgcolor="white", paper_bgcolor="white")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
 with col_right:
     # Boxplot par type de checkin
@@ -191,7 +191,7 @@ with col_right:
     )
     fig.add_hline(y=0, line_dash="dash", line_color="red")
     fig.update_layout(plot_bgcolor="white", paper_bgcolor="white", showlegend=False)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
 st.caption(
     "57.5% des chauffeurs rendent la voiture en retard. "
@@ -233,7 +233,7 @@ with col_left:
         color_discrete_map={"mobile": "#3498db", "connect": "#e67e22"},
     )
     fig.update_layout(plot_bgcolor="white", paper_bgcolor="white")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
 with col_right:
     # Scatter retard précédent vs délai prévu
@@ -262,7 +262,7 @@ with col_right:
         line=dict(color="black", dash="dash")
     )
     fig.update_layout(plot_bgcolor="white", paper_bgcolor="white")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
 st.caption("Points rouges : le retard du précédent dépasse le délai prévu → chevauchement réel.")
 
@@ -338,7 +338,7 @@ with col_left:
         plot_bgcolor="white", paper_bgcolor="white",
         xaxis_title="Seuil (min)", xaxis2_title="Seuil (min)",
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
 with col_right:
     # Ratio par seuil
@@ -355,16 +355,7 @@ with col_right:
     fig.add_hline(y=1, line_dash="dash", line_color="red",
                   annotation_text="Ratio = 1 (seuil d'équilibre)")
     fig.update_layout(plot_bgcolor="white", paper_bgcolor="white")
-    st.plotly_chart(fig, use_container_width=True)
-
-# Tableau récapitulatif
-st.subheader("Tableau récapitulatif")
-st.dataframe(
-    df_results[df_results["Seuil (min)"] > 0].style.highlight_max(
-        subset=["Ratio (résolus / bloqués)"], color="#d5f5e3"
-    ),
-    use_container_width=True,
-)
+    st.plotly_chart(fig, width='stretch')
 
 st.markdown("---")
 
@@ -429,7 +420,7 @@ with col_form2:
 
 st.markdown("")
 
-if st.button("💰 Estimer le prix journalier", type="primary", use_container_width=False):
+if st.button("💰 Estimer le prix journalier", type="primary", width='content'):
     payload = {
         "input": [{
             "model_key":                  model_key,

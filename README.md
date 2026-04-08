@@ -79,16 +79,14 @@ streamlit run streamlit_app.py
 # → http://localhost:8501
 ```
 
-> Update `API_URL` in `streamlit_app.py` to point to the running API before launching the dashboard.
-
 ---
 
 ## Online
 
 | Service | URL |
 |---------|-----|
-| API (Hugging Face) | https://pybnet/getarounda_api.hf.space |
-| API docs | https://pybnet/getarounda_api.hf.space/docs |
+| API (Hugging Face) | https://pybnet-getarounda-api.hf.space |
+| API docs | https://pybnet-getarounda-api.hf.space/docs |
 
 ### Example API call
 
