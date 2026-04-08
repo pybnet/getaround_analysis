@@ -5,5 +5,8 @@ serverAddress = '0.0.0.0'
 dataFrameSerialization = "legacy"
 
 [theme]
-base="dark"
-primaryColor="#4be8e0"
+base = "light"
+primaryColor = "#005ea2"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f0f4f8"
+textColor = "#1a1a1a"
