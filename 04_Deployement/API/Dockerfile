@@ -6,7 +6,6 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY api_app.py .
-COPY model.pkl .
 
 EXPOSE 7860
 

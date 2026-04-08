@@ -1,14 +1,33 @@
+import os
+import io
+import boto3
 import joblib
 import pandas as pd
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List
 
-#Load model
-model = joblib.load("model.pkl")
+# Chargement modèle
 
-#App
+def load_model():
+    s3 = boto3.client(
+        "s3",
+        aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+        aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
+        region_name=os.getenv("AWS_REGION", "eu-central-1"),
+    )
+    buffer = io.BytesIO()
+    s3.download_fileobj(
+    os.getenv("AWS_BUCKET_NAME", "pybnet-s3"),
+    os.getenv("AWS_MODEL_PATH", "getaround/models/model.pkl"),
+    buffer,
+  )
+    buffer.seek(0)
+    return joblib.load(buffer)
+
+model = load_model()
+
 app = FastAPI(
     title="GetAround Pricing API",
     description="Predicts the optimal daily rental price for a car listed on GetAround.",
@@ -40,13 +59,12 @@ class PredictRequest(BaseModel):
 class PredictResponse(BaseModel):
     prediction: List[float]
 
+# Endpoints
 
-#predict
 @app.post("/predict", response_model=PredictResponse, tags=["Prediction"])
 def predict(request: PredictRequest):
     """
     Predict the optimal daily rental price (€/day) for one or several cars.
-
     Accepts a JSON body with an `input` key containing a list of car objects.
     Returns a `prediction` list of floats in the same order.
     """
@@ -56,14 +74,14 @@ def predict(request: PredictRequest):
     return PredictResponse(prediction=predictions)
 
 
-#healt
 @app.get("/health", tags=["Monitoring"])
 def health():
     """Simple health check."""
     return {"status": "ok"}
 
 
-#docs (custom HTML) 
+# Docs
+
 DOCS_HTML = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,18 +113,14 @@ DOCS_HTML = """<!DOCTYPE html>
     h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 16px; color: #0f3460;
          border-left: 4px solid #e94560; padding-left: 12px; }
     h3 { font-size: 1rem; font-weight: 600; margin: 20px 0 8px; }
-
     .endpoint-card {
-      background: #fff;
-      border-radius: 12px;
+      background: #fff; border-radius: 12px;
       box-shadow: 0 2px 12px rgba(0,0,0,.07);
-      overflow: hidden;
-      margin-bottom: 28px;
+      overflow: hidden; margin-bottom: 28px;
     }
     .endpoint-header {
       display: flex; align-items: center; gap: 14px;
-      padding: 18px 24px;
-      border-bottom: 1px solid #eef0f4;
+      padding: 18px 24px; border-bottom: 1px solid #eef0f4;
     }
     .method {
       font-size: 0.7rem; font-weight: 800; letter-spacing: 1px;
@@ -117,7 +131,6 @@ DOCS_HTML = """<!DOCTYPE html>
     .path { font-family: 'Courier New', monospace; font-size: 1rem; font-weight: 600; }
     .description { color: #555; font-size: 0.9rem; margin-top: 4px; }
     .endpoint-body { padding: 20px 24px; }
-
     table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 8px; }
     th { text-align: left; padding: 8px 12px; background: #f0f4ff;
          font-weight: 600; color: #0f3460; border-bottom: 2px solid #e0e8ff; }
@@ -133,8 +146,6 @@ DOCS_HTML = """<!DOCTYPE html>
       border-radius: 10px; padding: 20px; overflow-x: auto;
       font-size: 0.82rem; line-height: 1.7; margin-top: 12px;
     }
-    .tag { display: inline-block; background: #f0f4ff; color: #0f3460;
-           border-radius: 4px; padding: 1px 8px; font-size: 0.78rem; font-weight: 600; margin-right: 4px; }
     .model-section { background: #fff; border-radius: 12px;
                      box-shadow: 0 2px 12px rgba(0,0,0,.07); padding: 24px; }
     .metric { display: inline-block; background: #e0f0e9; color: #1a7a4a;
@@ -156,13 +167,12 @@ DOCS_HTML = """<!DOCTYPE html>
     competitive daily prices for car owners. It accepts structured car features and returns
     a predicted price in <strong>€/day</strong>.</p>
     <br>
-    <p><strong>Base URL:</strong> <code>https://your-space.hf.space</code></p>
+    <p><strong>Base URL:</strong> <code>https://pybnet-getarounda-api.hf.space</code></p>
   </section>
 
   <section>
     <h2>Endpoints</h2>
 
-    <!-- POST /predict -->
     <div class="endpoint-card">
       <div class="endpoint-header">
         <span class="method post">POST</span>
@@ -172,7 +182,6 @@ DOCS_HTML = """<!DOCTYPE html>
         </div>
       </div>
       <div class="endpoint-body">
-
         <h3>Request Body</h3>
         <table>
           <tr><th>Field</th><th>Type</th><th>Description</th></tr>
@@ -204,7 +213,7 @@ DOCS_HTML = """<!DOCTYPE html>
         </table>
 
         <h3>Example – curl</h3>
-        <pre>curl -X POST "https://your-space.hf.space/predict" \\
+        <pre>curl -X POST "https://pybnet-getarounda-api.hf.space/predict" \\
      -H "Content-Type: application/json" \\
      -d '{
   "input": [{
@@ -227,7 +236,7 @@ DOCS_HTML = """<!DOCTYPE html>
         <h3>Example – Python</h3>
         <pre>import requests
 
-response = requests.post("https://your-space.hf.space/predict", json={
+response = requests.post("https://pybnet-getarounda-api.hf.space/predict", json={
     "input": [{
         "model_key": "Renault",
         "mileage": 85000,
@@ -246,11 +255,9 @@ response = requests.post("https://your-space.hf.space/predict", json={
 })
 print(response.json())
 # {"prediction": [118.45]}</pre>
-
       </div>
     </div>
 
-    <!-- GET /health -->
     <div class="endpoint-card">
       <div class="endpoint-header">
         <span class="method get">GET</span>
@@ -264,7 +271,6 @@ print(response.json())
         <pre>{"status": "ok"}</pre>
       </div>
     </div>
-
   </section>
 
   <section>
