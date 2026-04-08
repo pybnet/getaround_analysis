@@ -1,4 +1,4 @@
-#GetAround — Delay Analysis & Pricing API
+# GetAround — Delay Analysis & Pricing API
 
 GetAround is a car-sharing platform (the Airbnb for cars).
 Goals:
