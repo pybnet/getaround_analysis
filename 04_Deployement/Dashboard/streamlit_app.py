@@ -15,7 +15,7 @@ st.set_page_config(
 )
 
 DATA_URL = "https://full-stack-assets.s3.eu-west-3.amazonaws.com/Deployment/get_around_delay_analysis.xlsx"
-API_URL  = "https://Pybnet/getarounda_api.hf.space"   # ← URL du Space Hugging Face de l'API
+API_URL  = "https://pybnet/getarounda_api.hf.space"   # ← URL du Space Hugging Face de l'API
 
 #Initilisation
 

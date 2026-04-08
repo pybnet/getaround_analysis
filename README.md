@@ -21,7 +21,7 @@ getaround_analysis/
 │   ├── train.py                   # Model training with MLflow tracking
 │   ├── model.pkl                  # Serialized best model (gitignored)
 │   └── mlruns/                    # MLflow runs (gitignored)
-└── 04_deployments/
+└── 04_deployement/
     ├── API/
     │   ├── api_app.py             # FastAPI — /predict & /docs endpoints
     │   ├── model.pkl              # Serialized best model (gitignored)
@@ -87,13 +87,13 @@ streamlit run streamlit_app.py
 
 | Service | URL |
 |---------|-----|
-| API (Hugging Face) | https://Pybnet/getarounda_api.hf.space |
-| API docs | https://Pybnet/getarounda_api.hf.space/docs |
+| API (Hugging Face) | https://pybnet/getarounda_api.hf.space |
+| API docs | https://pybnet/getarounda_api.hf.space/docs |
 
 ### Example API call
 
 ```bash
-curl -X POST "https://your-space.hf.space/predict" \
+curl -X POST "https://pybnet/getarounda_api.hf.space/predict" \
      -H "Content-Type: application/json" \
      -d '{
   "input": [{
