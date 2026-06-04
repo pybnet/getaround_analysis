@@ -273,7 +273,7 @@ st.markdown("---")
 st.header("Simulation de seuils")
 
 # Tableau comparatif tous seuils
-thresholds = [0, 30, 60, 120]
+thresholds = [30, 60, 120]
 results = []
 
 for sc in ["Tous", "Connect uniquement"]:
@@ -373,8 +373,8 @@ st.markdown("""
 | 60 min | Connect | 181 (4.2%) | 260 | 1.44 |
 | 120 min | Tous | 666 (3.1%) | 653 | 0.98 |
 
-**Un seuil de 60 minutes sur tous les types de checkin** offre le meilleur équilibre :
-- Il résout **754 cas problématiques** tout en bloquant seulement **1.9% des créneaux**
+**Un seuil de 30 minutes sur tous les types de checkin** offre le meilleur équilibre :
+- Il résout **805 cas problématiques** tout en bloquant seulement **1.3% des créneaux**
 - Au-delà de 120 min, le ratio s'inverse : on bloque plus de locations qu'on ne résout de problèmes
 - Appliquer le seuil aux seules voitures Connect serait insuffisant car les retards sont majoritairement sur le **parc mobile** (61.4% en retard vs 42.9% pour Connect)
 """)
